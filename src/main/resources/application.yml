@@ -1,0 +1,65 @@
+server:
+  port: 8080
+  max-http-request-header-size: 16KB
+
+spring:
+  application:
+    root: auth
+    name: hooni-auth-api
+
+  datasource:
+    # ENC 값은 실행 시 전달하는 Jasypt 복호화 비밀번호로 해석한다.
+    driver-class-name: org.postgresql.Driver
+    url: ENC(5leQtN0DQr1eggM9j9ZC8PqPTu/X+AD2d133IzlhKC2UmF1v9VDb9D0jgmmvBAyWep3ta1/WCjFXmo+9O1JZTK918F5EyJdDSPCrI1FYuzfS4EJ4AJ1m/weqLFO6uq3O)
+    username: ENC(xSbqNS4j7+Zn5xwFKLzl+ci1/7LocEFcbkpUd+A4gSR5E4oUe86St6fqaQrvHeZY)
+    password: ENC(dLlxrR9fuc33vY+RrwR8uv561afVvMc86AL6n473YUKn2mBzwwXCRYb2g8qa0mgV)
+
+  data:
+    redis:
+      host: ENC(+hWcLWz8qr5fOr8vf9yRiNVtbPsLoXaRoPimm4lIkr1ijNj9bxF7nOM6UbD6tT4b)
+      port: 6379
+      username: ENC(lWqH5ay8ffTtHimhSbZRB/EmLP2Kw+3/MztLY7FEzaYW4CuA1qbCGkrkQAnsGibW)
+      password: ENC(n1bYkEQ47ER+MAEqDkh+zAUBGWoapZpaX41yiHhecPNc9qmn5KMzzE7hdRlkqZqE)
+
+mybatis:
+  type-aliases-package: org.hooni.auth.api
+  configuration:
+    map-underscore-to-camel-case: true
+  mapper-locations:
+    - classpath:mapper/**/*Mapper.xml
+
+springdoc:
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    path: /
+
+jasypt:
+  encryptor:
+    password: ${ENCRYPTOR_PROFILE}
+
+jwt:
+  algorithm: RS256
+  issuer: hooni-template-auth
+  audience: hooni-template-api
+  key-id: hooni-template-rsa
+  # 두 값이 비어 있으면 로컬 개발용 RSA 키 쌍을 실행 시 생성한다.
+  # 운영 환경에서는 PKCS#8 개인키와 X.509 공개키의 Base64 값을 반드시 주입한다.
+  private-key: ${JWT_PRIVATE_KEY:}
+  public-key: ${JWT_PUBLIC_KEY:}
+  access-token-validity: 15m
+  refresh-token-validity: 7d
+
+application:
+  security:
+    allowed-origin:
+      - http://localhost:3000
+    # 비어 있으면 X-Client-IP를 신뢰하지 않고 직접 연결 주소로 Rate Limit을 적용한다.
+    # Gateway가 전달한 클라이언트 IP를 사용하려면 Gateway Pod/Proxy IP 또는 CIDR만 등록한다.
+    trusted-proxy-addresses: []
+  cookie:
+    # HTTPS 운영 환경에서는 반드시 true로 덮어쓴다.
+    secure: false
+    same-site: Lax
+    access-token-name: accessToken
+    refresh-token-name: refreshToken

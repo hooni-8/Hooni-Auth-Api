@@ -1,0 +1,30 @@
+spring:
+  datasource:
+    url: ENC(5leQtN0DQr1eggM9j9ZC8PqPTu/X+AD2d133IzlhKC2UmF1v9VDb9D0jgmmvBAyWep3ta1/WCjFXmo+9O1JZTK918F5EyJdDSPCrI1FYuzfS4EJ4AJ1m/weqLFO6uq3O)
+    username: ENC(xSbqNS4j7+Zn5xwFKLzl+ci1/7LocEFcbkpUd+A4gSR5E4oUe86St6fqaQrvHeZY)
+    password: ENC(dLlxrR9fuc33vY+RrwR8uv561afVvMc86AL6n473YUKn2mBzwwXCRYb2g8qa0mgV)
+
+  data:
+    redis:
+      host: ENC(+hWcLWz8qr5fOr8vf9yRiNVtbPsLoXaRoPimm4lIkr1ijNj9bxF7nOM6UbD6tT4b)
+      port: 6379
+      username: ENC(lWqH5ay8ffTtHimhSbZRB/EmLP2Kw+3/MztLY7FEzaYW4CuA1qbCGkrkQAnsGibW)
+      password: ENC(n1bYkEQ47ER+MAEqDkh+zAUBGWoapZpaX41yiHhecPNc9qmn5KMzzE7hdRlkqZqE)
+
+application:
+  security:
+    allowed-origin:
+      - ${APPLICATION_CORS_ALLOWED_ORIGIN}
+  cookie:
+    secure: true
+    same-site: Lax
+
+jwt:
+  private-key: ${JWT_PRIVATE_KEY}
+  public-key: ${JWT_PUBLIC_KEY}
+
+springdoc:
+  api-docs:
+    enabled: false
+  swagger-ui:
+    enabled: false

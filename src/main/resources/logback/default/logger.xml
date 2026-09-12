@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<included>
+    <!-- 이전 log4jdbc(SLF4J) 카테고리 설정 -->
+    <logger name="jdbc" level="OFF"/>
+    <logger name="jdbc.sqlonly" level="OFF"/>
+    <logger name="jdbc.sqltiming" level="OFF"/>
+    <logger name="jdbc.resultset" level="OFF"/>
+    <logger name="jdbc.resultsettable" level="OFF"/>
+    <logger name="jdbc.audit" level="OFF"/>
+    <logger name="jdbc.connection" level="OFF"/>
+
+    <!--
+      사용 중인 log4jdbc-log4j2는 단일 로거와 marker를 사용한다.
+      appender의 marker filter가 SQL과 최종 조회 결과 표만 출력하고,
+      Connection/Audit/ResultSet 메서드 호출 로그는 모두 버린다.
+    -->
+    <logger name="log4jdbc.log4j2" level="INFO" additivity="false">
+        <appender-ref ref="SQL_CONSOLE"/>
+        <appender-ref ref="RESULT_CONSOLE"/>
+    </logger>
+    <logger name="log4jdbc.debug" level="OFF"/>
+
+    <logger name="org.hibernate.SQL" level="OFF"/>
+    <logger name="org.hibernate.loader" level="OFF"/>
+
+    <logger name="org.hibernate.hql.internal" level="OFF"/>
+
+    <logger name="org.hibernate.jpa.internal.util.LogHelper" level="OFF"/>
+
+    <logger name="org.hibernate.orm.results" level="OFF"/>
+    <logger name="org.hibernate.orm.sql.ast.tree" level="OFF"/>
+    <logger name="org.hibernate.orm.results.graph.AST" level="OFF"/>
+    <logger name="org.hibernate.orm.connections.pooling" level="OFF"/>
+
+    <logger name="org.hibernate.engine.internal" level="OFF"/>
+    <logger name="org.hibernate.engine.loading.internal" level="OFF"/>
+    <logger name="org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator" level="OFF"/>
+
+    <logger name="org.hibernate.internal.util.EntityPrinter" level="OFF"/>
+
+    <!-- Hikari의 커넥션 풀 상태/housekeeper 로그를 출력하지 않는다. -->
+    <logger name="com.zaxxer.hikari" level="OFF"/>
+    <logger name="com.zaxxer.hikari.HikariConfig" level="OFF"/>
+
+    <!-- 라이브러리 초기화 정보성 로그는 숨기고 경고/오류만 남긴다. -->
+    <logger name="com.ulisesbocchio" level="WARN"/>
+    <logger name="org.springframework.ws" level="WARN"/>
+    <logger name="org.springframework.validation.beanvalidation.OptionalValidatorFactoryBean" level="WARN"/>
+    <logger name="org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker" level="OFF"/>
+    <logger name="org.springframework.web.servlet.DispatcherServlet" level="OFF"/>
+
+    <logger name="org.springframework.boot.autoconfigure.logging.ConditionEvaluationReportLogger" level="OFF"/>
+</included>

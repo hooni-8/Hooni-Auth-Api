@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.hooni.auth.api.mapper.auth.AuthMapper">
+
+    <select id="findByUserId"
+            resultType="org.hooni.auth.api.model.user.UserDetail">
+        SELECT ID, USER_CODE, USER_ID, USER_PW, USER_NAME, ROLE_GROUP
+          FROM AUTH_USER
+         WHERE USER_ID = #{userId}
+    </select>
+
+    <select id="findByUserCode"
+            resultType="org.hooni.auth.api.model.user.UserDetail">
+        SELECT ID, USER_CODE, USER_ID, USER_PW, USER_NAME, ROLE_GROUP
+          FROM AUTH_USER
+         WHERE USER_CODE = #{userCode}
+    </select>
+
+    <select id="existsByUserId"
+            resultType="boolean">
+        SELECT EXISTS (
+            SELECT 1
+              FROM AUTH_USER
+             WHERE USER_ID = #{userId}
+        )
+    </select>
+
+    <insert id="insert"
+            parameterType="org.hooni.auth.api.model.user.UserDetail">
+        INSERT INTO AUTH_USER (
+            USER_CODE, USER_ID, USER_PW, USER_NAME, ROLE_GROUP
+        ) VALUES (
+            #{userCode}, #{userId}, #{userPw}, #{userName}, #{roleGroup}
+        )
+    </insert>
+</mapper>
