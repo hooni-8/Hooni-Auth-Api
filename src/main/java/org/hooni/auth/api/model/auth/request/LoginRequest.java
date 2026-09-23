@@ -16,4 +16,6 @@ public class LoginRequest {
     @NotBlank
     @Size(min = 8, max = 72)
     private String password;
+
+    private String sourcePath;
 }

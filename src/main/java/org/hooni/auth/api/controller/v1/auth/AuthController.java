@@ -4,6 +4,7 @@ import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.hooni.auth.api.model.auth.AuthTokens;
 import org.hooni.auth.api.model.auth.LoginStatus;
 import org.hooni.auth.api.model.auth.request.LoginRequest;
@@ -26,6 +27,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Arrays;
 
 /** 인증 HTTP 요청을 Service 호출로 연결하고 토큰 쿠키를 생성·삭제한다. */
+@Slf4j
 @RestController
 @RequestMapping("/auth")
 @RequiredArgsConstructor
@@ -59,6 +61,7 @@ public class AuthController {
     /** 로그인 성공 시 발급된 Access/Refresh Token을 각각 HttpOnly 쿠키로 전달한다. */
     @PostMapping("/login")
     public ResponseEntity<Void> login(@Valid @RequestBody LoginRequest request, HttpServletRequest servletRequest) {
+        log.info("sourcePath => {}", request.getSourcePath());
         AuthTokens tokens = authApplicationService.login(request, clientIdentifier(servletRequest));
         return ResponseEntity.ok()
                 .header(HttpHeaders.SET_COOKIE, accessTokenCookie(tokens.accessToken()).toString())
