@@ -13,8 +13,7 @@ spring:
 
 application:
   security:
-    allowed-origin:
-      - ${APPLICATION_CORS_ALLOWED_ORIGIN}
+    allowed-origin: ${APPLICATION_CORS_ALLOWED_ORIGIN}
   cookie:
     secure: true
     same-site: Lax
